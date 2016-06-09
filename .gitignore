@@ -1,5 +1,6 @@
 node_modules
 npm-debug.log
+!gulpfile.js
 *.js
 *.map
 *.d.ts

@@ -1,15 +1,18 @@
 {
     "compilerOptions": {
-        "noImplicitAny": true,
-        "module": "commonjs",
         "target": "ES5",
+        "module": "commonjs",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
+        "moduleResolution": "node",
         "sourceMap": true,
-        "declaration": true
+        "declaration": true,
+        "noImplicitAny": true,
+        "suppressImplicitAnyIndexErrors": true
     },
     "files": [
-        "eqwad-combo-box.ts"
+        "source/eqwad-combo-box.ts",
+        "eqwad-combo-box"
     ],
     "exclude": [
         "node_modules"
