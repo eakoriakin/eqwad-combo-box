@@ -23,10 +23,21 @@
         "es6-shim": "0.35.0",
         "rxjs": "5.0.0-beta.6",
         "systemjs": "0.19.27",
-        "font-awesome": "~4.5.0"
+        "font-awesome": ">=4.5.0"
     },
-    "typings": "./eqwad-combo-box.d.ts",
-    "scripts": {
-        "prepublish": "ntsc"
-    }
+    "devDependencies": {
+        "typescript": "1.8.10",
+        "tslint": "3.9.0",
+        "del": "2.2.0",
+        "gulp": "3.9.1",
+        "gulp-sourcemaps": "2.0.0-alpha",
+        "gulp-tslint": "5.0.0",
+        "gulp-typescript": "2.13.1",
+        "gulp-less": "3.1.0",
+        "gulp-concat": "2.6.0",
+        "gulp-clean-css": "2.0.7",
+        "run-sequence": "1.2.1",
+        "merge2": "1.0.2"
+    },
+    "typings": "./build/eqwad-combo-box.d.ts"
 }

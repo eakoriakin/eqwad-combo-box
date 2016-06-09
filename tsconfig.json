@@ -1,4 +1,5 @@
 {
+    "compileOnSave": false,
     "compilerOptions": {
         "target": "ES5",
         "module": "commonjs",
@@ -7,12 +8,13 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "declaration": true,
+        "noExternalResolve": true,
         "noImplicitAny": true,
         "suppressImplicitAnyIndexErrors": true
     },
     "files": [
-        "source/eqwad-combo-box.ts",
-        "eqwad-combo-box"
+        "eqwad-combo-box.ts",
+        "eqwad-combo-box.component.ts"
     ],
     "exclude": [
         "node_modules"

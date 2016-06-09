@@ -1,4 +1,7 @@
 node_modules
 npm-debug.log
 *.ts
-!*.d.ts
+*.less
+gulpfile.js
+tslint.json
+!build
