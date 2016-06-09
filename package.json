@@ -2,6 +2,7 @@
     "version": "0.0.1",
     "name": "eqwad-combo-box",
     "title": "Eqwad ComboBox",
+    "description": "Eqwad ComboBox is a customizable select box for Angular2 with support for searching, tagging and remote data sets.",
     "homepage": "https://github.com/eakoryakin/eqwad-combo-box",
     "author": {
         "name": "Evgenii Koriakin",
