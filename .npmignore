@@ -1,6 +1,8 @@
 node_modules
 npm-debug.log
+.npmignore
 *.ts
+!*d.ts
 *.less
 gulpfile.js
 tslint.json
