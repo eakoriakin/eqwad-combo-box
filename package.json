@@ -1,5 +1,5 @@
 {
-    "version": "0.0.5",
+    "version": "0.0.6",
     "name": "eqwad-combo-box",
     "title": "Eqwad ComboBox",
     "description": "Eqwad ComboBox is a customizable select box for Angular2 with support for searching, tagging and remote data sets.",
@@ -23,6 +23,8 @@
         "es6-shim": "0.35.0",
         "rxjs": "5.0.0-beta.6",
         "systemjs": "0.19.27",
+        "reflect-metadata": "0.1.2",
+        "zone.js": "0.6.12",
         "font-awesome": ">=4.5.0"
     },
     "devDependencies": {
