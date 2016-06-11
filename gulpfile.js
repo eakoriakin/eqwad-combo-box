@@ -65,13 +65,15 @@ gulp.task('build', function() {
     build();
 });
 
-gulp.task('start', ['build'], function() {
-    // Watch CSS files.
-    gulp.watch(paths.source.css, ['copy-css']);
+gulp.task('start', function() {
+    build(function() {
+        // Watch CSS files.
+        gulp.watch(paths.source.css, ['copy-css']);
 
-    // Watch JS files.
-    gulp.watch(paths.source.js).on('change', function() {
-        build();
+        // Watch JS files.
+        gulp.watch(paths.source.js).on('change', function() {
+            build();
+        });
     });
 });
 
