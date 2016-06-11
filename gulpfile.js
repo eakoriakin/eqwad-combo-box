@@ -30,7 +30,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('copy-js', function() {
-    // Create JS files TS declaration files.
+    // Create TS declaration files.
     var tsResult = gulp.src(tsconfig.files, {
             base: './'
         })
