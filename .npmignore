@@ -1,9 +1,10 @@
 node_modules
 npm-debug.log
+.gitignore
 .npmignore
 *.ts
-!*d.ts
+!*.d.ts
 *.less
 gulpfile.js
+tsconfig.json
 tslint.json
-!build

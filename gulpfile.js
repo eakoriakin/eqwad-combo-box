@@ -10,26 +10,16 @@ const gulp = require('gulp'),
     cleanCss = require('gulp-clean-css');
 
 const paths = {
-    source: {
-        css: '*.less',
-        js: '*.ts'
-    },
-    build: {
-        root: 'build',
-        css: 'build',
-        js: 'build'
-    }
+    root: '',
+    css: '*.less',
+    ts: ['*.ts', '!*.d.ts']
 };
 
 var build = function() {
-    runSequence('clean', ['check-js', 'copy-js', 'copy-css']);
+    runSequence(['check-ts', 'copy-ts', 'copy-css']);
 };
 
-gulp.task('clean', function() {
-    del.sync([paths.build.root + '/**', '!' + paths.build.root]);
-});
-
-gulp.task('copy-js', function() {
+gulp.task('copy-ts', function() {
     // Create TS declaration files.
     var tsResult = gulp.src(tsconfig.files, {
             base: './'
@@ -40,23 +30,23 @@ gulp.task('copy-js', function() {
     // Create sourcemaps.
     tsResult.js
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(paths.build.js));
+        .pipe(gulp.dest(paths.root));
 
     return merge([
-        tsResult.dts.pipe(gulp.dest(paths.build.js)),
-        tsResult.js.pipe(gulp.dest(paths.build.js))
+        tsResult.dts.pipe(gulp.dest(paths.root)),
+        tsResult.js.pipe(gulp.dest(paths.root))
     ]);
 });
 
 gulp.task('copy-css', function() {
-    return gulp.src(paths.source.css)
+    return gulp.src(paths.css)
         .pipe(less())
         .pipe(cleanCss())
-        .pipe(gulp.dest(paths.build.css));
+        .pipe(gulp.dest(paths.root));
 });
 
-gulp.task('check-js', function() {
-    return gulp.src(paths.source.js)
+gulp.task('check-ts', function() {
+    return gulp.src(paths.ts)
         .pipe(tslint())
         .pipe(tslint.report('verbose'));
 });
@@ -68,10 +58,10 @@ gulp.task('build', function() {
 gulp.task('start', function() {
     build(function() {
         // Watch CSS files.
-        gulp.watch(paths.source.css, ['copy-css']);
+        gulp.watch(paths.css, ['copy-css']);
 
-        // Watch JS files.
-        gulp.watch(paths.source.js).on('change', function() {
+        // Watch TS files.
+        gulp.watch(paths.ts).on('change', function() {
             build();
         });
     });

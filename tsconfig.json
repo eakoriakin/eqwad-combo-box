@@ -13,8 +13,7 @@
         "suppressImplicitAnyIndexErrors": true
     },
     "files": [
-        "eqwad-combo-box.ts",
-        "eqwad-combo-box.component.ts"
+        "eqwad-combo-box.ts"
     ],
     "exclude": [
         "node_modules"

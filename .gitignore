@@ -1,3 +1,7 @@
 node_modules
 npm-debug.log
-build
+*.css
+*.js
+!gulpfile.js
+*.d.ts
+*.map
