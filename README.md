@@ -9,7 +9,7 @@
 
 ## Overview
 
-Eqwad ComboBox is a customizable select box for Angular2 with support for searching, tagging and remote data sets.
+Eqwad ComboBox is a customizable select box for Angular2.
 
 # Examples
 Examples are [here](https://eqwad-combo-box-demo.herokuapp.com/).
