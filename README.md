@@ -107,28 +107,28 @@ Declare it in the component's HTML file.
 ### [items](../../wiki/items)
 The data source of the component which is used to display a list of values.
 
-### [itemTextField](../../itemTextField)
+### [itemTextField](../../wiki/itemTextField)
 The field of the data item that provides the text content of the list items. The component will filter the data based on this field.
 
-### [itemValueField](../../itemValueField)
+### [itemValueField](../../wiki/itemValueField)
 The field of the data item that provides the value of the component.
 
-### [placeholder](../../placeholder)
+### [placeholder](../../wiki/placeholder)
 The hint displayed by the component when the value is not selected.
 
 ## Methods
-### [close()](../../close())
+### [close()](../../wiki/close())
 Closes the list.
 
-### [open()](../../open())
+### [open()](../../wiki/open())
 Opens the list.
 
 ## Events
-### [onClose](../../onClose)
+### [onClose](../../wiki/onClose)
 Fires when the list is closed by the user.
 
-### [onOpen](../../onOpen)
+### [onOpen](../../wiki/onOpen)
 Fires when the list is opened by the user.
 
-### [onSelect](../../onSelect)
+### [onSelect](../../wiki/onSelect)
 Fires when an item from the list is selected by the user.
