@@ -6,15 +6,13 @@ import {Component, Input, Output, ViewChild, Renderer, OnDestroy, EventEmitter} 
         <div class="eq-combo-box" #comboBoxElement
             [ngClass]="{ 'eq-combo-box_is-opened': _isOpened, 'eq-combo-box_is-focused': _isFocused }"
             (mouseenter)="_mouseenter()"
-            (mouseleave)="_mouseleave()"
-        >
+            (mouseleave)="_mouseleave()">
             <div class="eq-combo-box__wrapper">
                 <input class="eq-combo-box__text" #textElement
                     type="text"
                     autocomplete="off"
                     [placeholder]="placeholder"
-                    readonly
-                />
+                    readonly/>
                 <div class="eq-combo-box__open" (click)="_open()">
                     <i class="fa fa-caret-down"></i>
                 </div>
@@ -23,12 +21,11 @@ import {Component, Input, Output, ViewChild, Renderer, OnDestroy, EventEmitter} 
         <div class="eq-combo-box-list" #listElement
             [ngClass]="{ 'eq-combo-box-list_is-opened': _isOpened, 'eq-combo-box-list_is-focused': _isFocused }"
             (mouseenter)="_mouseenter()"
-            (mouseleave)="_mouseleave()"
-        >
+            (mouseleave)="_mouseleave()">
             <div class="eq-combo-box-list__item"
                 *ngFor="let item of items"
-                (click)="_select(item, $event)"
-            >{{item[itemTextField]}}
+                (click)="_select(item, $event)">
+                {{item[itemTextField]}}
             </div>
         </div>
     `
