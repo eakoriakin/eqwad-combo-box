@@ -1,7 +1,6 @@
 [npm-image]: https://img.shields.io/npm/v/eqwad-combo-box.svg
 [npm-url]: https://npmjs.org/package/eqwad-combo-box
 [downloads-image]: https://img.shields.io/npm/dm/eqwad-combo-box.svg
-[root-url]: https://github.com/eakoryakin/eqwad-combo-box/
 
 # Eqwad ComboBox
 
@@ -105,31 +104,31 @@ Declare it in the component's HTML file.
     </eq-combo-box>
 
 ## Properties
-### [items]([root-url]wiki/items)
+### [items](../../wiki/items)
 The data source of the component which is used to display a list of values.
 
-### [itemTextField](/eakoryakin/eqwad-combo-box/wiki/itemTextField)
+### [itemTextField](../../itemTextField)
 The field of the data item that provides the text content of the list items. The component will filter the data based on this field.
 
-### [itemValueField](/eakoryakin/eqwad-combo-box/wiki/itemValueField)
+### [itemValueField](../../itemValueField)
 The field of the data item that provides the value of the component.
 
-### [placeholder](/eakoryakin/eqwad-combo-box/wiki/placeholder)
+### [placeholder](../../placeholder)
 The hint displayed by the component when the value is not selected.
 
 ## Methods
-### [close()](/eakoryakin/eqwad-combo-box/wiki/close())
+### [close()](../../close())
 Closes the list.
 
-### [open()](/eakoryakin/eqwad-combo-box/wiki/open())
+### [open()](../../open())
 Opens the list.
 
 ## Events
-### [onClose](/eakoryakin/eqwad-combo-box/wiki/onClose)
+### [onClose](../../onClose)
 Fires when the list is closed by the user.
 
-### [onOpen](/eakoryakin/eqwad-combo-box/wiki/onOpen)
+### [onOpen](../../onOpen)
 Fires when the list is opened by the user.
 
-### [onSelect](/eakoryakin/eqwad-combo-box/wiki/onSelect)
+### [onSelect](../../onSelect)
 Fires when an item from the list is selected by the user.
