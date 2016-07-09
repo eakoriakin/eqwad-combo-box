@@ -15,8 +15,14 @@ const paths = {
     ts: ['*.ts', '!*.d.ts']
 };
 
-var build = function() {
-    runSequence(['check-ts', 'copy-ts', 'copy-css']);
+var build = function(complete) {
+    var tasks = ['check-ts', 'copy-ts', 'copy-css'];
+
+    if (complete) {
+        runSequence(tasks, complete);
+    } else {
+        runSequence(tasks);
+    }
 };
 
 gulp.task('copy-ts', function() {

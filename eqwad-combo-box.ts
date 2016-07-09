@@ -74,7 +74,7 @@ export class EqwadComboBox implements OnDestroy {
     }
 
     open() {
-        this._setListWidth();
+        this._positionList();
         this._isOpened = true;
     }
 
@@ -86,7 +86,7 @@ export class EqwadComboBox implements OnDestroy {
         this._isOpened = !this._isOpened;
 
         if (this._isOpened) {
-            this._setListWidth();
+            this._positionList();
             this._isFocused = true;
             this.onOpen.emit(null);
         } else {
@@ -123,8 +123,8 @@ export class EqwadComboBox implements OnDestroy {
         this._close();
     }
 
-    private _setListWidth() {
-        // Set list width equal to ComboBox width.
+    private _positionList() {
         this.listElement.nativeElement.style.width = this.comboBoxElement.nativeElement.offsetWidth + 'px';
+        this.listElement.nativeElement.style.left = this.comboBoxElement.nativeElement.offsetLeft + 'px';
     }
 }
