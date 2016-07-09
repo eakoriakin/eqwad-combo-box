@@ -15,7 +15,7 @@ Eqwad ComboBox is a customizable select box for Angular2.
 * [Examples ](#examples)
 * [Dependencies](#dependencies)
 * [Download](#download)
-* [Installation](#installation)
+* [Getting started](#gettingstarted)
 * [Properties](#properties)
 * [Methods](#methods)
 * [Events](#events)
@@ -32,7 +32,7 @@ Download it using npm:
 
 `npm install eqwad-combo-box`
 
-## Installation
+## Getting started
 Follow the steps below to add Eqwad ComboBox to your app. Also check out [Eqwad ComboBox Demo](https://github.com/eakoryakin/eqwad-combo-box-demo) for an example of installation.
 
 Include Eqwad ComboBox CSS file in your main app HTML file and configure SystemJS.  
