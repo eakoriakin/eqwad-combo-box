@@ -1,6 +1,7 @@
 [npm-image]: https://img.shields.io/npm/v/eqwad-combo-box.svg
 [npm-url]: https://npmjs.org/package/eqwad-combo-box
 [downloads-image]: https://img.shields.io/npm/dm/eqwad-combo-box.svg
+[root-url]: https://github.com/eakoryakin/eqwad-combo-box/
 
 # Eqwad ComboBox
 
@@ -15,7 +16,7 @@ Eqwad ComboBox is a customizable select box for Angular2.
 * [Examples ](#examples)
 * [Dependencies](#dependencies)
 * [Download](#download)
-* [Getting started](#gettingstarted)
+* [Getting started](#getting-started)
 * [Properties](#properties)
 * [Methods](#methods)
 * [Events](#events)
@@ -104,7 +105,7 @@ Declare it in the component's HTML file.
     </eq-combo-box>
 
 ## Properties
-### [items](/eakoryakin/eqwad-combo-box/wiki/items)
+### [items]([root-url]wiki/items)
 The data source of the component which is used to display a list of values.
 
 ### [itemTextField](/eakoryakin/eqwad-combo-box/wiki/itemTextField)
