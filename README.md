@@ -25,6 +25,9 @@ Eqwad ComboBox is a customizable select box for Angular2.
   * [close()](#close)
   * [open()](#open)
 * [Events](#events)
+  * [onClose](#onclose)
+  * [onOpen](#onopen)
+  * [onSelect](#onselect)
 
 ## Examples
 Examples are [here](https://eqwad-combo-box-demo.herokuapp.com/).
