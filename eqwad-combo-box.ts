@@ -12,7 +12,7 @@ import {Component, Input, Output, ViewChild, Renderer, OnDestroy, EventEmitter} 
                     type="text"
                     autocomplete="off"
                     [placeholder]="placeholder"
-                    readonly/>
+                    (input)="_textChange()"/>
                 <div class="eq-combo-box__open" (click)="_open()">
                     <i class="fa fa-caret-down"></i>
                 </div>
@@ -118,6 +118,20 @@ export class EqwadComboBox implements OnDestroy {
         this.textElement.nativeElement.value = item[this.itemTextField];
         this.onSelect.emit(item);
         this._close();
+    }
+
+    private _textChange() {
+        // TODO search by itemTextField
+        // If items are found open the list and set focus to first item in the list
+        for (let item of this.items) {
+            console.log('item:', item);
+            // for (let key in item) {
+            //     if ((typeof item[key] === 'string' || item[key] instanceof String) &&
+            //         (item[key].indexOf(args[0]) !== -1)) {
+            //         return true;
+            //     }
+            // }
+        }
     }
 
     private _positionList() {
