@@ -16,7 +16,7 @@ Eqwad ComboBox is a customizable select box for Angular2.
 * [Dependencies](#dependencies)
 * [Download](#download)
 * [Getting started](#getting-started)
-* Properties
+* Fields
   * [items](../../wiki/items)
   * [itemTextField](../../wiki/itemTextField)
   * [itemValueField](../../wiki/itemValueField)
