@@ -6,7 +6,7 @@
     border: 1px solid #ccc;
     border-radius: 3px;
 
-    &_is-opened {
+    &_is-opened&_has-items {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
@@ -73,6 +73,10 @@
 
     &_is-opened {
         display: block;
+    }
+
+    &_is-opened:not(&_has-items) {
+        display: none;
     }
 
     &_is-focused {

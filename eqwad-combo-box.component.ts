@@ -6,14 +6,19 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
     pipes: [EqwadComboBoxFilter],
     template: `
         <div class="eq-combo-box" #comboBoxElement
-            [ngClass]="{ 'eq-combo-box_is-opened': _isOpened, 'eq-combo-box_is-focused': _isFocused }"
+            [ngClass]="{
+                'eq-combo-box_is-opened': _isOpened,
+                'eq-combo-box_is-focused': _isFocused,
+                'eq-combo-box_has-items': _hasItems
+            }"
             (mouseenter)="_mouseenter()"
             (mouseleave)="_mouseleave()">
             <div class="eq-combo-box__wrapper">
                 <input class="eq-combo-box__text" #textElement
                     type="text"
                     autocomplete="off"
-                    [(ngModel)]="text"
+                    [ngModel]="_text"
+                    (ngModelChange)="_textChange($event)"
                     [placeholder]="placeholder"/>
                 <div class="eq-combo-box__open" (click)="_open()">
                     <i class="fa fa-caret-down"></i>
@@ -21,11 +26,15 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
             </div>
         </div>
         <div class="eq-combo-box-list" #listElement
-            [ngClass]="{ 'eq-combo-box-list_is-opened': _isOpened, 'eq-combo-box-list_is-focused': _isFocused }"
+            [ngClass]="{
+                'eq-combo-box-list_is-opened': _isOpened,
+                'eq-combo-box-list_is-focused': _isFocused,
+                'eq-combo-box-list_has-items': _hasItems
+            }"
             (mouseenter)="_mouseenter()"
             (mouseleave)="_mouseleave()">
             <div class="eq-combo-box-list__item"
-                *ngFor="let item of (items | eqwadComboBoxFilter:itemTextField:text)"
+                *ngFor="let item of (items | eqwadComboBoxFilter:itemTextField:_text)"
                 (click)="_select(item, $event)">
                 {{item[itemTextField]}}
             </div>
@@ -49,11 +58,12 @@ export class EqwadComboBox implements OnDestroy {
 
     value: Array<Object> = [];
 
-    private text = '';
+    private _text = '';
     private _isOpened = false;
     private _isFocused = false;
     private _isHovered = false;
     private _documentClickListener: Function;
+    private _hasItems: boolean;
 
     constructor(renderer: Renderer) {
         this._documentClickListener = renderer.listenGlobal('document', 'click', (event: any) => {
@@ -74,6 +84,7 @@ export class EqwadComboBox implements OnDestroy {
     }
 
     open() {
+        this._checkItems();
         this._positionList();
         this._isOpened = true;
     }
@@ -83,6 +94,7 @@ export class EqwadComboBox implements OnDestroy {
     }
 
     private _open() {
+        this._checkItems();
         this._isOpened = !this._isOpened;
 
         if (this._isOpened) {
@@ -126,5 +138,14 @@ export class EqwadComboBox implements OnDestroy {
     private _positionList() {
         this.listElement.nativeElement.style.width = this.comboBoxElement.nativeElement.offsetWidth + 'px';
         this.listElement.nativeElement.style.left = this.comboBoxElement.nativeElement.offsetLeft + 'px';
+    }
+
+    private _textChange(text: string) {
+        this._text = text;
+        this._checkItems();
+    }
+
+    private _checkItems() {
+        this._hasItems = new EqwadComboBoxFilter().transform(this.items, this.itemTextField, this._text).length > 0;
     }
 }
