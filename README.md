@@ -16,18 +16,18 @@ Eqwad ComboBox is a customizable select box for Angular2.
 * [Dependencies](#dependencies)
 * [Download](#download)
 * [Getting started](#getting-started)
-* [Properties](#properties)
-  * [items](#items)
-  * [itemTextField](#itemtextfield)
-  * [itemValueField](#itemvaluefield)
-  * [placeholder](#placeholder)
-* [Methods](#methods)
-  * [close()](#close)
-  * [open()](#open)
-* [Events](#events)
-  * [onClose](#onclose)
-  * [onOpen](#onopen)
-  * [onSelect](#onselect)
+* Fields
+  * [items](../../wiki/items)
+  * [itemTextField](../../wiki/itemTextField)
+  * [itemValueField](../../wiki/itemValueField)
+  * [placeholder](../../wiki/placeholder)
+* Methods
+  * [close()](../../wiki/close())
+  * [open()](../../wiki/open())
+* Events
+  * [onClose](../../wiki/onClose)
+  * [onOpen](../../wiki/onOpen)
+  * [onSelect](../../wiki/onSelect)
 
 ## Examples
 Examples are [here](https://eqwad-combo-box-demo.herokuapp.com/).
@@ -111,33 +111,3 @@ Declare it in the component's HTML file.
         [placeholder]="'Select fabric...'"
         (onSelect)="select($event)">
     </eq-combo-box>
-
-## Properties
-### [items](../../wiki/items)
-The data source of the component which is used to display a list of values.
-
-### [itemTextField](../../wiki/itemTextField)
-The field of the data item that provides the text content of the list items. The component will filter the data based on this field.
-
-### [itemValueField](../../wiki/itemValueField)
-The field of the data item that provides the value of the component.
-
-### [placeholder](../../wiki/placeholder)
-The hint displayed by the component when the value is not selected.
-
-## Methods
-### [close()](../../wiki/close())
-Closes the list.
-
-### [open()](../../wiki/open())
-Opens the list.
-
-## Events
-### [onClose](../../wiki/onClose)
-Fires when the list is closed by the user.
-
-### [onOpen](../../wiki/onOpen)
-Fires when the list is opened by the user.
-
-### [onSelect](../../wiki/onSelect)
-Fires when an item from the list is selected by the user.
