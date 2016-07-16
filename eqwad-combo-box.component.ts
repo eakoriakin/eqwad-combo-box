@@ -6,11 +6,13 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
     pipes: [EqwadComboBoxFilter],
     template: `
         <div class="eq-combo-box" #comboBoxElement
+            tabindex="0"
             [ngClass]="{
                 'eq-combo-box_is-opened': _isOpened,
                 'eq-combo-box_is-focused': _isFocused,
                 'eq-combo-box_has-items': _hasItems
             }"
+            (keydown)="_keydown($event)"
             (mouseenter)="_mouseenter()"
             (mouseleave)="_mouseleave()">
             <div class="eq-combo-box__wrapper">
@@ -20,7 +22,8 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
                     [ngModel]="_text"
                     (ngModelChange)="_textChange($event)"
                     [placeholder]="placeholder"/>
-                <div class="eq-combo-box__open" (click)="_open()">
+                <div class="eq-combo-box__open"
+                    (click)="_open()">
                     <i class="fa fa-caret-down"></i>
                 </div>
             </div>
@@ -34,8 +37,12 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
             (mouseenter)="_mouseenter()"
             (mouseleave)="_mouseleave()">
             <div class="eq-combo-box-list__item"
-                *ngFor="let item of (items | eqwadComboBoxFilter:itemTextField:_text)"
-                (click)="_select(item, $event)">
+                *ngFor="let item of (items | eqwadComboBoxFilter:itemTextField:_text); let i = index"
+                [ngClass]="{
+                    'eq-combo-box-list__item_is-selected': _isItemSelected(i),
+                    'eq-combo-box-list__item_is-highlighted': _isItemHighlighted(i)
+                }"
+                (click)="_select(i, $event)">
                 {{item[itemTextField]}}
             </div>
         </div>
@@ -64,6 +71,14 @@ export class EqwadComboBox implements OnDestroy {
     private _isHovered = false;
     private _documentClickListener: Function;
     private _hasItems: boolean;
+    private _keyCode = {
+        down: 40,
+        escape: 27,
+        tab: 9,
+        up: 38
+    };
+    private _highlightedItemIndex = -1;
+    private _selectedItemIndex = -1;
 
     constructor(renderer: Renderer) {
         this._documentClickListener = renderer.listenGlobal('document', 'click', (event: any) => {
@@ -111,6 +126,7 @@ export class EqwadComboBox implements OnDestroy {
             return;
         }
 
+        this._highlightedItemIndex = -1;
         this._isOpened = false;
         this.onClose.emit(null);
     }
@@ -123,12 +139,9 @@ export class EqwadComboBox implements OnDestroy {
         this._isHovered = false;
     }
 
-    private _select(item: Object, event: any) {
-        for (let i = 0; i < this.listElement.nativeElement.children.length; i++) {
-            this.listElement.nativeElement.children[i].className = 'eq-combo-box-list__item';
-        }
-
-        event.target.className = event.target.className + ' eq-combo-box-list__item_is-selected';
+    private _select(itemIndex: number, event: any) {
+        let item = this.items[itemIndex];
+        this._selectedItemIndex = itemIndex;
         this.value = [item];
         this.textElement.nativeElement.value = item[this.itemTextField];
         this.onSelect.emit(item);
@@ -143,9 +156,66 @@ export class EqwadComboBox implements OnDestroy {
     private _textChange(text: string) {
         this._text = text;
         this._checkItems();
+
+        if (!this._isOpened) {
+            this.open();
+        }
     }
 
     private _checkItems() {
         this._hasItems = new EqwadComboBoxFilter().transform(this.items, this.itemTextField, this._text).length > 0;
+    }
+
+    private _isItemSelected(itemIndex) {
+        return itemIndex === this._selectedItemIndex;
+    }
+
+    private _isItemHighlighted(itemIndex) {
+        return itemIndex === this._highlightedItemIndex;
+    }
+
+    private _keydown(event) {
+        // Down key.
+        if (event.which === this._keyCode.down) {
+            if (!this._isOpened) {
+                this.open();
+                return;
+            }
+
+            if (this._highlightedItemIndex === -1) {
+                this._highlightedItemIndex = 0;
+            } else {
+                if (this._highlightedItemIndex < this.items.length - 1) {
+                    this._highlightedItemIndex++;
+                }
+            }
+        }
+
+        // Up key.
+        if (event.which === this._keyCode.up) {
+            if (!this._isOpened) {
+                return;
+            }
+
+            if (this._highlightedItemIndex > 0) {
+                this._highlightedItemIndex--;
+            }
+        }
+
+        // Tab key.
+        if (event.which === this._keyCode.tab) {
+            if (this._highlightedItemIndex === -1) {
+                return;
+            }
+
+            this._select(this._highlightedItemIndex);
+        }
+
+        // Esc key.
+        if (event.which === this._keyCode.escape) {
+            if (this._isOpened) {
+                this._close();
+            }
+        }
     }
 }
