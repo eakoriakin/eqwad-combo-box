@@ -21,6 +21,7 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
                     autocomplete="off"
                     [ngModel]="_text"
                     (ngModelChange)="_textChange($event)"
+                    (focus)="_textFocus()"
                     [placeholder]="placeholder"/>
                 <div class="eq-combo-box__open"
                     (click)="_open()">
@@ -37,7 +38,7 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
             (mouseenter)="_mouseenter()"
             (mouseleave)="_mouseleave()">
             <div class="eq-combo-box-list__item"
-                *ngFor="let item of (items | eqwadComboBoxFilter:itemTextField:_text); let i = index"
+                *ngFor="let item of (items | eqwadComboBoxFilter:itemTextField:_text:value:_isTyping); let i = index"
                 [ngClass]="{
                     'eq-combo-box-list__item_is-selected': _isItemSelected(i),
                     'eq-combo-box-list__item_is-highlighted': _isItemHighlighted(i)
@@ -63,12 +64,13 @@ export class EqwadComboBox implements OnDestroy {
     @ViewChild('listElement') private listElement: any;
     @ViewChild('textElement') private textElement: any;
 
-    value: Array<Object> = [];
+    value: Object;
 
     private _text = '';
     private _isOpened = false;
     private _isFocused = false;
     private _isHovered = false;
+    private _isTyping = false;
     private _documentClickListener: Function;
     private _hasItems: boolean;
     private _keyCode = {
@@ -142,10 +144,11 @@ export class EqwadComboBox implements OnDestroy {
     private _select(itemIndex: number, event: any) {
         let item = this.items[itemIndex];
         this._selectedItemIndex = itemIndex;
-        this.value = [item];
+        this.value = item;
         this.textElement.nativeElement.value = item[this.itemTextField];
         this.onSelect.emit(item);
         this._close();
+        this._isTyping = false;
     }
 
     private _positionList() {
@@ -154,6 +157,7 @@ export class EqwadComboBox implements OnDestroy {
     }
 
     private _textChange(text: string) {
+        this._isTyping = true;
         this._text = text;
         this._checkItems();
 
@@ -162,19 +166,23 @@ export class EqwadComboBox implements OnDestroy {
         }
     }
 
-    private _checkItems() {
-        this._hasItems = new EqwadComboBoxFilter().transform(this.items, this.itemTextField, this._text).length > 0;
+    private _textFocus() {
+        this._isFocused = true;
     }
 
-    private _isItemSelected(itemIndex) {
+    private _checkItems() {
+        this._hasItems = new EqwadComboBoxFilter().transform(this.items, this.itemTextField, this._text, this.value, this._isTyping).length > 0;
+    }
+
+    private _isItemSelected(itemIndex: number) {
         return itemIndex === this._selectedItemIndex;
     }
 
-    private _isItemHighlighted(itemIndex) {
+    private _isItemHighlighted(itemIndex: number) {
         return itemIndex === this._highlightedItemIndex;
     }
 
-    private _keydown(event) {
+    private _keydown(event: any) {
         // Down key.
         if (event.which === this._keyCode.down) {
             if (!this._isOpened) {
@@ -208,7 +216,9 @@ export class EqwadComboBox implements OnDestroy {
                 return;
             }
 
-            this._select(this._highlightedItemIndex);
+            this._select(this._highlightedItemIndex, null);
+            this.comboBoxElement.nativeElement.focus();
+            this._isFocused = true;
         }
 
         // Esc key.
