@@ -58,13 +58,14 @@ Include Eqwad ComboBox CSS file in your main app HTML file and configure SystemJ
                 System.config({
                     packages: {
                         app: {
-                            format: 'register',
-                            defaultExtension: 'js'
+                            format: 'register'
                         },
-                        'eqwad-combo-box': {}
+                        '../node_modules/eqwad-combo-box/': {
+                            defaultExtension: 'js'
+                        }
                     },
                     map: {
-                        'eqwad-combo-box': 'node_modules/eqwad-combo-box/eqwad-combo-box.js'
+                        'eqwad-combo-box': '../node_modules/eqwad-combo-box/eqwad-combo-box'
                     }
                 });
 
