@@ -6,10 +6,11 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
     pipes: [EqwadComboBoxFilter],
     template: `
         <div class="eq-combo-box" #comboBoxElement
-            tabindex="0"
+            tabindex="{{isEnabled ? '0' : '-1'}}"
             [ngClass]="{
                 'eq-combo-box_is-opened': _isOpened,
-                'eq-combo-box_is-focused': _isFocused,
+                'eq-combo-box_is-focused': _isFocused && isEnabled,
+                'eq-combo-box_is-enabled': isEnabled,
                 'eq-combo-box_has-items': _hasItems
             }"
             (keydown)="_keydown($event)"
@@ -22,7 +23,8 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
                     [ngModel]="_text"
                     (ngModelChange)="_textChange($event)"
                     (focus)="_textFocus()"
-                    [placeholder]="placeholder"/>
+                    [placeholder]="placeholder"
+                    [readonly]="!isEnabled"/>
                 <div class="eq-combo-box__open"
                     (click)="_open()">
                     <i class="fa fa-caret-down"></i>
@@ -55,6 +57,8 @@ export class EqwadComboBox implements OnDestroy {
     @Input() itemTextField: string;
     @Input() items: Array<Object> = [];
     @Input() placeholder: string = '';
+    @Input() value: Object = null;
+    @Input() isEnabled: boolean = true;
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
     @Output() onOpen: EventEmitter<any> = new EventEmitter();
@@ -63,8 +67,6 @@ export class EqwadComboBox implements OnDestroy {
     @ViewChild('comboBoxElement') private comboBoxElement: any;
     @ViewChild('listElement') private listElement: any;
     @ViewChild('textElement') private textElement: any;
-
-    value: Object;
 
     private _text = '';
     private _isOpened = false;
@@ -101,6 +103,10 @@ export class EqwadComboBox implements OnDestroy {
     }
 
     open() {
+        if (!this.isEnabled) {
+            return;
+        }
+
         this._checkItems();
         this._positionList();
         this._isOpened = true;
@@ -111,6 +117,10 @@ export class EqwadComboBox implements OnDestroy {
     }
 
     private _open() {
+        if (!this.isEnabled) {
+            return;
+        }
+
         this._checkItems();
         this._isOpened = !this._isOpened;
 
