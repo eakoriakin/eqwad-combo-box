@@ -23,6 +23,7 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
                     [ngModel]="_text"
                     (ngModelChange)="_textChange($event)"
                     (focus)="_textFocus()"
+                    (blur)="_textBlur()"
                     [placeholder]="placeholder"
                     [readonly]="!isEnabled"/>
                 <div class="eq-combo-box__open"
@@ -154,9 +155,14 @@ export class EqwadComboBox implements OnDestroy {
     private _select(itemIndex: number, event: any) {
         let item = this.items[itemIndex];
         this._selectedItemIndex = itemIndex;
-        this.value = item;
         this.textElement.nativeElement.value = item[this.itemTextField];
-        this.onSelect.emit(item);
+
+        // A different item has been selected.
+        if (this.value && this.value[this.itemValueField] !== item[this.itemValueField]) {
+            this.onSelect.emit(item);
+        }
+
+        this.value = item;
         this._close();
         this._isTyping = false;
     }
@@ -180,8 +186,50 @@ export class EqwadComboBox implements OnDestroy {
         this._isFocused = true;
     }
 
+    private _textBlur() {
+        let text = this.textElement.nativeElement.value;
+        this._isTyping = false;
+        this._close();
+
+        if (!text) {
+            return;
+        }
+
+        text = text.toLowerCase();
+
+        // Text has not changed.
+        if (this.value && this.value[this.itemTextField].toLowerCase() === text) {
+            return;
+        }
+
+        let item = {};
+        item[this.itemValueField] = '';
+        item[this.itemTextField] = this.textElement.nativeElement.value;
+
+        let items = this.items.filter(item => {
+            let itemText = item[this.itemTextField];
+            return itemText && itemText.toLowerCase() === text;
+        });
+
+        if (items.length === 0) {
+            // Create a new item if item with the same text does not exist.
+            this.value = item;
+            this.onSelect.emit(item);
+        } else {
+            // Use an existing item.
+            let existingItem = items[0];
+
+            if (existingItem[this.itemValueField] !== this.value[this.itemValueField]) {
+                this.value = existingItem;
+                this.onSelect.emit(existingItem);
+            }
+        }
+    }
+
     private _checkItems() {
-        this._hasItems = new EqwadComboBoxFilter().transform(this.items, this.itemTextField, this._text, this.value, this._isTyping).length > 0;
+        this._hasItems = new EqwadComboBoxFilter()
+            .transform(this.items, this.itemTextField, this._text, this.value, this._isTyping)
+            .length > 0;
     }
 
     private _isItemSelected(itemIndex: number) {
