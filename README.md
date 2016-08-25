@@ -44,7 +44,7 @@ Download it using npm:
 `npm install eqwad-combo-box`
 
 ## Getting started
-Follow the steps below to add Eqwad ComboBox to your app. Also check out [Eqwad ComboBox Demo](https://github.com/eakoryakin/eqwad-combo-box-demo) for an example of installation.
+Follow the steps below to add Eqwad ComboBox to your app. Also check out [Eqwad ComboBox Demo](https://github.com/eakoriakin/eqwad-combo-box-demo) for an example of installation.
 
 Include Eqwad ComboBox CSS file in your main app HTML file and configure SystemJS.  
 

@@ -1,17 +1,17 @@
 {
-    "version": "0.5.1",
+    "version": "0.5.2",
     "name": "eqwad-combo-box",
     "title": "Eqwad ComboBox",
     "description": "Eqwad ComboBox is a customizable select box for Angular2.",
-    "homepage": "https://github.com/eakoryakin/eqwad-combo-box",
+    "homepage": "https://github.com/eakoriakin/eqwad-combo-box",
     "author": {
         "name": "Evgenii Koriakin",
-        "url": "https://github.com/eakoryakin"
+        "url": "https://github.com/eakoriakin"
     },
     "license": "(MIT OR Apache-2.0)",
     "repository": {
         "type": "git",
-        "url": "https://github.com/eakoryakin/eqwad-combo-box.git"
+        "url": "https://github.com/eakoriakin/eqwad-combo-box.git"
     },
     "keywords": [
         "angular select",
@@ -28,7 +28,7 @@
         "angularjs 2 combo box"
     ],
     "bugs": {
-        "url": "https://github.com/eakoryakin/eqwad-combo-box/issues"
+        "url": "https://github.com/eakoriakin/eqwad-combo-box/issues"
     },
     "dependencies": {
         "angular2": "2.0.0-beta.17",

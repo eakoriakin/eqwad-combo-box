@@ -1,4 +1,4 @@
-import { Component, Input, Output, ViewChild, Renderer, OnDestroy, EventEmitter } from 'angular2/core';
+import { Component, Input, Output, ViewChild, Renderer, OnDestroy, EventEmitter, OnChanges, SimpleChanges } from 'angular2/core';
 import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
 
 @Component({
@@ -53,7 +53,7 @@ import { EqwadComboBoxFilter } from './eqwad-combo-box-filter.pipe';
     `
 })
 
-export class EqwadComboBox implements OnDestroy {
+export class EqwadComboBox implements OnDestroy, OnChanges {
     @Input() itemValueField: string;
     @Input() itemTextField: string;
     @Input() items: Array<Object> = [];
@@ -84,6 +84,7 @@ export class EqwadComboBox implements OnDestroy {
     };
     private _highlightedItemIndex = -1;
     private _selectedItemIndex = -1;
+    private _isViewInitialized = false;
 
     constructor(renderer: Renderer) {
         this._documentClickListener = renderer.listenGlobal('document', 'click', (event: any) => {
@@ -96,6 +97,17 @@ export class EqwadComboBox implements OnDestroy {
                 this._isFocused = false;
             }
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.value) {
+            this._setValue(changes.value.currentValue);
+        }
+    }
+
+    ngAfterViewInit() {
+        this._isViewInitialized = true;
+        this._setValue(this.value);
     }
 
     ngOnDestroy() {
@@ -115,6 +127,30 @@ export class EqwadComboBox implements OnDestroy {
 
     close() {
         this._isOpened = false;
+    }
+
+    private _setValue(value: Object) {
+        if (!this._isViewInitialized) {
+            return;
+        }
+
+        if (value) {
+            let selectedItemIndex = -1,
+                selectedItem: Object = null;
+
+            for (let i = 0; i < this.items.length; i++) {
+                if (this.items[i][this.itemValueField] === value[this.itemValueField]) {
+                    selectedItemIndex = i;
+                    selectedItem = this.items[i];
+                    break;
+                }
+            }
+
+            this._selectedItemIndex = selectedItemIndex;
+            this.textElement.nativeElement.value = selectedItem[this.itemTextField];
+        } else {
+            this.textElement.nativeElement.value = '';
+        }
     }
 
     private _open() {
@@ -152,10 +188,15 @@ export class EqwadComboBox implements OnDestroy {
         this._isHovered = false;
     }
 
-    private _select(itemIndex: number, event: any) {
+    private _select(itemIndex: number, event?: any) {
         let item = this.items[itemIndex];
         this._selectedItemIndex = itemIndex;
         this.textElement.nativeElement.value = item[this.itemTextField];
+
+        // No item was previously selected.
+        if (!this.value) {
+            this.onSelect.emit(item);
+        }
 
         // A different item has been selected.
         if (this.value && this.value[this.itemValueField] !== item[this.itemValueField]) {
